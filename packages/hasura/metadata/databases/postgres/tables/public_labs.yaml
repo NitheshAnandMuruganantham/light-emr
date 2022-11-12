@@ -1,0 +1,11 @@
+table:
+  schema: public
+  name: labs
+array_relationships:
+  - name: medical_technologists
+    using:
+      foreign_key_constraint_on:
+        column: lab_technician_id
+        table:
+          schema: public
+          name: report

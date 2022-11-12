@@ -1,0 +1,25 @@
+table:
+  schema: public
+  name: user
+array_relationships:
+  - name: doctor_opinions
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          schema: public
+          name: doctor_opinion
+  - name: medical_technologists
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          schema: public
+          name: report
+  - name: prescriptions
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          schema: public
+          name: prescription

@@ -1,0 +1,10 @@
+table:
+  schema: public
+  name: prescription
+object_relationships:
+  - name: doctor
+    using:
+      foreign_key_constraint_on: doctor_id
+  - name: user
+    using:
+      foreign_key_constraint_on: user_id

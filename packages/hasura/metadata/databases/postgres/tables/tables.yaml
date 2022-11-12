@@ -1,0 +1,8 @@
+- "!include public_doctor.yaml"
+- "!include public_doctor_opinion.yaml"
+- "!include public_hospital.yaml"
+- "!include public_lab_technician.yaml"
+- "!include public_labs.yaml"
+- "!include public_prescription.yaml"
+- "!include public_report.yaml"
+- "!include public_user.yaml"

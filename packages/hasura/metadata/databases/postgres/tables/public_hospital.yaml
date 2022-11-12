@@ -1,0 +1,11 @@
+table:
+  schema: public
+  name: hospital
+array_relationships:
+  - name: doctors
+    using:
+      foreign_key_constraint_on:
+        column: hospital_id
+        table:
+          schema: public
+          name: doctor

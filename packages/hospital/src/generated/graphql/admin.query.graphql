@@ -1,0 +1,92 @@
+mutation addTenent($object: tenents_insert_input!) {
+  insert_tenents_one(object: $object) {
+    id
+  }
+}
+
+mutation deleteTenant($deleteTenentsByPkId: uuid!) {
+  delete_tenents_by_pk(id: $deleteTenentsByPkId) {
+    id
+  }
+}
+
+subscription getAllTenants(
+  $limit: Int
+  $offset: Int
+  $orderBy: [tenents_order_by!]
+  $where: tenents_bool_exp
+) {
+  tenents(limit: $limit, offset: $offset, order_by: $orderBy, where: $where) {
+    email
+    name
+    activate
+    maintainer {
+      id
+      email
+    }
+    id
+    phone
+    metadata
+    payment_pending
+  }
+}
+
+subscription getTenantsCount(
+  $where: tenents_bool_exp
+  $orderBy: [tenents_order_by!]
+  $offset: Int
+  $limit: Int
+) {
+  tenents_aggregate(
+    where: $where
+    order_by: $orderBy
+    offset: $offset
+    limit: $limit
+  ) {
+    aggregate {
+      count
+    }
+  }
+}
+
+query getAllTenentsDropDown(
+  $where: tenents_bool_exp
+  $limit: Int
+  $orderBy: [tenents_order_by!]
+) {
+  tenents(where: $where, limit: $limit, order_by: $orderBy) {
+    label: name
+    value: id
+  }
+}
+mutation editTenent(
+  $pkColumns: tenents_pk_columns_input!
+  $set: tenents_set_input
+) {
+  update_tenents_by_pk(pk_columns: $pkColumns, _set: $set) {
+    id
+  }
+}
+
+query getTenet($tenentsByPkId: uuid!) {
+  tenents_by_pk(id: $tenentsByPkId) {
+    email
+    id
+    maintainer {
+      id
+      email
+    }
+    activate
+    name
+    metadata
+    phone
+    payment_pending
+  }
+}
+
+query getRoleDropdownOptions {
+  role {
+    value: value
+    label: value
+  }
+}

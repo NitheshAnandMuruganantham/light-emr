@@ -1,0 +1,22 @@
+table:
+  schema: public
+  name: doctor
+object_relationships:
+  - name: hospital
+    using:
+      foreign_key_constraint_on: hospital_id
+array_relationships:
+  - name: doctor_opinions
+    using:
+      foreign_key_constraint_on:
+        column: doctor_id
+        table:
+          schema: public
+          name: doctor_opinion
+  - name: prescriptions
+    using:
+      foreign_key_constraint_on:
+        column: doctor_id
+        table:
+          schema: public
+          name: prescription

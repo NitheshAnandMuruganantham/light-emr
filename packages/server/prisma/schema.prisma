@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  id                         String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at                 DateTime         @default(now()) @db.Timestamptz(6)
+  updated_at                 DateTime         @default(now()) @db.Timestamptz(6)
+  name                       String
+  email                      String
+  birth                      DateTime         @db.Date
+  nationality                String
+  profile                    Json             @db.Json
+  height                     Int
+  weight                     Int
+  password                   String
+  blocked                    Boolean          @default(false)
+  email_verified             Boolean          @default(false)
+  refresh_token_hash         String?
+  forgot_password_token_hash String?
+  aadhar                     Int              @unique
+  pan                        String
+  doctor_opinion             doctor_opinion[]
+  prescription               prescription[]
+  report                     report[]
+}
+
+model doctor {
+  id                         String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at                 DateTime         @default(now()) @db.Timestamptz(6)
+  updated_at                 DateTime         @default(now()) @db.Timestamptz(6)
+  name                       String
+  address                    String
+  hospital_id                String           @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  password                   String
+  forgot_password_token_hash String?
+  refresh_token_hash         String?
+  hospital                   hospital         @relation(fields: [hospital_id], references: [id], onUpdate: Restrict)
+  doctor_opinion             doctor_opinion[]
+  prescription               prescription[]
+}
+
+model doctor_opinion {
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  updated_at DateTime @default(now()) @db.Timestamptz(6)
+  data       Json     @default(dbgenerated("json_build_object()")) @db.Json
+  doctor_id  String   @db.Uuid
+  user_id    String   @db.Uuid
+  referances Json?    @default(dbgenerated("json_build_array()")) @db.Json
+  doctor     doctor   @relation(fields: [doctor_id], references: [id], onUpdate: Restrict)
+  user       user     @relation(fields: [user_id], references: [id], onUpdate: Restrict)
+}
+
+model hospital {
+  created_at   DateTime @default(now()) @db.Timestamptz(6)
+  updated_at   DateTime @default(now()) @db.Timestamptz(6)
+  name         String
+  address      String
+  district     String
+  state        String
+  pin          String
+  website      String
+  certificates Json     @default(dbgenerated("json_build_object()")) @db.Json
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  doctor       doctor[]
+}
+
+model lab_technician {
+  id                         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at                 DateTime @default(now()) @db.Timestamptz(6)
+  updated_at                 DateTime @default(now()) @db.Timestamptz(6)
+  name                       String
+  certificates               Json     @default(dbgenerated("json_build_array()")) @db.Json
+  lab_id                     String   @db.Uuid
+  password                   String
+  refresh_token_hash         String?
+  forgot_password_token_hash String?
+  labs                       labs     @relation(fields: [lab_id], references: [id], onUpdate: Restrict)
+}
+
+model labs {
+  id             String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at     DateTime         @default(now()) @db.Timestamptz(6)
+  updated_at     DateTime         @default(now()) @db.Timestamptz(6)
+  name           String
+  address        String
+  district       String
+  state          String
+  pin            String
+  certificates   Json             @default(dbgenerated("json_build_object()")) @db.Json
+  lab_technician lab_technician[]
+  report         report[]
+}
+
+model prescription {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @default(now()) @db.Timestamptz(6)
+  data       Json     @default(dbgenerated("json_build_array()")) @db.Json
+  doctor_id  String   @db.Uuid
+  user_id    String   @db.Uuid
+  doctor     doctor   @relation(fields: [doctor_id], references: [id], onUpdate: Restrict)
+  user       user     @relation(fields: [user_id], references: [id], onUpdate: Restrict)
+}
+
+model report {
+  id                String   @id(map: "medical_technologist_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at        DateTime @default(now()) @db.Timestamptz(6)
+  updated_at        DateTime @default(now()) @db.Timestamptz(6)
+  user_id           String   @db.Uuid
+  lab_technician_id String   @db.Uuid
+  data              Json     @default(dbgenerated("json_build_object()")) @db.Json
+  labs              labs     @relation(fields: [lab_technician_id], references: [id], onUpdate: Restrict, map: "medical_technologist_lab_id_fkey")
+  user              user     @relation(fields: [user_id], references: [id], onUpdate: Restrict, map: "medical_technologist_user_id_fkey")
+}
