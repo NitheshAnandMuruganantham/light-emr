@@ -17,8 +17,6 @@ export type Tokens = {
 export interface HttpsHasuraIoJwtClaims {
   'x-hasura-allowed-roles': string[];
   'x-hasura-default-role': string;
-  'x-hasura-tenent-id': string;
   'x-hasura-user-id': string;
-  'x-hasura-weighbridge-id': string;
   'x-hasura-user-email': string;
 }

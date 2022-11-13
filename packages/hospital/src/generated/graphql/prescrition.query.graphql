@@ -1,0 +1,76 @@
+mutation addPrescription($data: prescription_insert_input!) {
+  insert_prescription_one(object: $data) {
+    id
+  }
+}
+
+subscription getPrescriptionCount(
+  $where: prescription_bool_exp
+  $limit: Int
+  $order_by: [prescription_order_by!]
+  $offset: Int
+) {
+  prescription_aggregate(
+    where: $where
+    limit: $limit
+    offset: $offset
+    order_by: $order_by
+  ) {
+    aggregate {
+      count
+    }
+  }
+}
+
+subscription getPrescriptions(
+  $where: prescription_bool_exp
+  $limit: Int
+  $order_by: [prescription_order_by!]
+  $offset: Int
+) {
+  prescription(
+    where: $where
+    limit: $limit
+    offset: $offset
+    order_by: $order_by
+  ) {
+    created_at
+    id
+    data
+    doctor {
+      name
+      hospital {
+        name
+        address
+        certificates
+        pin
+      }
+    }
+    user {
+      name
+    }
+    doctor_id
+    user_id
+  }
+}
+
+query getOnePrescription($id: uuid!) {
+  prescription_by_pk(id: $id) {
+    created_at
+    data
+    doctor {
+      name
+      hospital {
+        name
+        address
+        certificates
+        pin
+      }
+    }
+    user {
+      name
+    }
+    doctor_id
+    user_id
+  }
+}

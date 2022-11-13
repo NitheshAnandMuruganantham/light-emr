@@ -9,14 +9,9 @@ import NoInternet from './pages/NoInternet';
 
 const ForgetPassword = React.lazy(() => import('./pages/auth/forgetPassword'));
 const SetNewPassword = React.lazy(() => import('./pages/auth/setPassword'));
-const Bills = React.lazy(() => import('./pages/bills'));
-const Clients = React.lazy(() => import('./pages/clients'));
-const Weigh = React.lazy(() => import('./pages/weigh'));
-const Users = React.lazy(() => import('./pages/users'));
-const Tenants = React.lazy(() => import('./pages/tenents'));
-const Weighbridges = React.lazy(() => import('./pages/weignbirdge'));
-const Maintainers = React.lazy(() => import('./pages/maintainers'));
-const Queries = React.lazy(() => import('./pages/queries'));
+const Prescriptions = React.lazy(() => import('./pages/prescriptions'));
+const GetPres = React.lazy(() => import('./pages/getPrescriptions'));
+const GetRec = React.lazy(() => import('./pages/getReports'));
 
 const LazyLoader = () => <Loading open={true} setOpen={() => null} />;
 
@@ -32,46 +27,19 @@ const LazySetNewPassword = () => (
   </React.Suspense>
 );
 
-const LazyBills = () => (
+const LazyPrescriptions = () => (
   <React.Suspense fallback={<LazyLoader />}>
-    <Bills />
+    <Prescriptions />
   </React.Suspense>
 );
-
-const LazyClients = () => (
+const LazyGetRec = () => (
   <React.Suspense fallback={<LazyLoader />}>
-    <Clients />
+    <GetRec />
   </React.Suspense>
 );
-const LazyWeigh = () => (
+const LazyGetPres = () => (
   <React.Suspense fallback={<LazyLoader />}>
-    <Weigh />
-  </React.Suspense>
-);
-const LazyUsers = () => (
-  <React.Suspense fallback={<LazyLoader />}>
-    <Users />
-  </React.Suspense>
-);
-const LazyTenants = () => (
-  <React.Suspense fallback={<LazyLoader />}>
-    <Tenants />
-  </React.Suspense>
-);
-const LazyWeighbridges = () => (
-  <React.Suspense fallback={<LazyLoader />}>
-    <Weighbridges />
-  </React.Suspense>
-);
-const LazyMaintainers = () => (
-  <React.Suspense fallback={<LazyLoader />}>
-    <Maintainers />
-  </React.Suspense>
-);
-
-const LazyQueries = () => (
-  <React.Suspense fallback={<LazyLoader />}>
-    <Queries />
+    <GetPres />
   </React.Suspense>
 );
 
@@ -99,14 +67,9 @@ const App: React.FunctionComponent = () => {
         <Routes>
           <Route path="*" element={<NotFound />} />
           <Route element={<RequireAuth />}>
-            <Route path="/" element={<LazyBills />} />
-            <Route path="/weighbridges" element={<LazyWeighbridges />} />
-            <Route path="/users" element={<LazyUsers />} />
-            <Route path="/weigh" element={<LazyWeigh />} />
-            <Route path="/tenants" element={<LazyTenants />} />
-            <Route path="/clients" element={<LazyClients />} />
-            <Route path="/maintainers" element={<LazyMaintainers />} />
-            <Route path="/queries" element={<LazyQueries />} />
+            <Route path="/" element={<LazyPrescriptions />} />
+            <Route path="/reports" element={<LazyGetRec />} />
+            <Route path="/prescriptions" element={<LazyGetPres />} />
           </Route>
           <Route element={<NotRequireAuth />}>
             <Route path="/login" element={<SignInSide />} />

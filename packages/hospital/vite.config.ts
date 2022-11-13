@@ -106,6 +106,6 @@ export default defineConfig({
     splitVendorChunkPlugin(),
   ],
   server: {
-    port: 8000,
+    port: 3000,
   },
 });

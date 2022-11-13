@@ -20,3 +20,18 @@ array_relationships:
         table:
           schema: public
           name: prescription
+select_permissions:
+  - role: doctor
+    permission:
+      columns:
+        - address
+        - email
+        - forgot_password_token_hash
+        - name
+        - password
+        - refresh_token_hash
+        - created_at
+        - updated_at
+        - hospital_id
+        - id
+      filter: {}

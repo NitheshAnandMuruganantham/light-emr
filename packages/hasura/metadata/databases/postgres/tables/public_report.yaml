@@ -2,9 +2,55 @@ table:
   schema: public
   name: report
 object_relationships:
-  - name: lab
+  - name: lab_technician
     using:
       foreign_key_constraint_on: lab_technician_id
   - name: user
     using:
       foreign_key_constraint_on: user_id
+insert_permissions:
+  - role: doctor
+    permission:
+      check: {}
+      columns:
+        - data
+        - created_at
+        - updated_at
+        - id
+        - lab_technician_id
+        - user_id
+  - role: lab_technician
+    permission:
+      check: {}
+      set:
+        lab_technician_id: x-hasura-user-id
+      columns:
+        - data
+        - created_at
+        - updated_at
+        - id
+        - lab_technician_id
+        - user_id
+select_permissions:
+  - role: doctor
+    permission:
+      columns:
+        - id
+        - created_at
+        - updated_at
+        - user_id
+        - lab_technician_id
+        - data
+      filter: {}
+      allow_aggregations: true
+  - role: lab_technician
+    permission:
+      columns:
+        - data
+        - created_at
+        - updated_at
+        - id
+        - lab_technician_id
+        - user_id
+      filter: {}
+      allow_aggregations: true

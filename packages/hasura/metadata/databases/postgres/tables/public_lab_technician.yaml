@@ -1,3 +1,30 @@
 table:
   schema: public
   name: lab_technician
+object_relationships:
+  - name: lab
+    using:
+      foreign_key_constraint_on: lab_id
+array_relationships:
+  - name: reports
+    using:
+      foreign_key_constraint_on:
+        column: lab_technician_id
+        table:
+          schema: public
+          name: report
+select_permissions:
+  - role: lab_technician
+    permission:
+      columns:
+        - certificates
+        - email
+        - forgot_password_token_hash
+        - name
+        - password
+        - refresh_token_hash
+        - created_at
+        - updated_at
+        - id
+        - lab_id
+      filter: {}

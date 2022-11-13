@@ -9,3 +9,18 @@ array_relationships:
         table:
           schema: public
           name: doctor
+select_permissions:
+  - role: doctor
+    permission:
+      columns:
+        - certificates
+        - address
+        - district
+        - name
+        - pin
+        - state
+        - website
+        - created_at
+        - updated_at
+        - id
+      filter: {}

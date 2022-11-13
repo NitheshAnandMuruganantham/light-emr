@@ -67,7 +67,7 @@ export default function SignInSide() {
               setLoading(true);
               toast.clearWaitingQueue();
               const dat = await fetch(
-                import.meta.env.VITE_SERVER_URL + '/auth/signin',
+                import.meta.env.VITE_SERVER_URL + '/auth/doc/signin',
                 {
                   method: 'POST',
                   headers: {

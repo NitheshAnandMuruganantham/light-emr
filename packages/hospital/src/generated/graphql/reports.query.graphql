@@ -1,0 +1,50 @@
+subscription getReports(
+  $limit: Int
+  $offset: Int
+  $order_by: [report_order_by!]
+  $where: report_bool_exp
+) {
+  report(limit: $limit, offset: $offset, order_by: $order_by, where: $where) {
+    data
+    id
+    lab_technician {
+      name
+      lab {
+        name
+      }
+    }
+    created_at
+  }
+}
+
+subscription getReportsCount(
+  $limit: Int
+  $offset: Int
+  $order_by: [report_order_by!]
+  $where: report_bool_exp
+) {
+  report_aggregate(
+    limit: $limit
+    offset: $offset
+    order_by: $order_by
+    where: $where
+  ) {
+    aggregate {
+      count
+    }
+  }
+}
+
+query getOneReport($id: uuid!) {
+  report_by_pk(id: $id) {
+    data
+    id
+    lab_technician {
+      name
+      lab {
+        name
+      }
+    }
+    created_at
+  }
+}

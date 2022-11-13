@@ -22,51 +22,15 @@ const GetHeaderNames = () => {
 const locationNames = [
   {
     path: '/',
-    name: 'Manage Bills',
+    name: 'Manage prescriptions',
   },
   {
-    path: '/weighbridges',
-    name: 'Manage Weighbridges',
+    path: '/reports',
+    name: 'Browse patient reports via Light EMR',
   },
   {
-    path: '/queries',
-    name: 'Manage And Resolve Queries',
-  },
-  {
-    path: '/finance',
-    name: 'Finance dashboard',
-  },
-  {
-    path: '/weigh',
-    name: 'Weighment Terminal',
-  },
-  {
-    path: '/users',
-    name: 'Manage Users',
-  },
-  {
-    path: '/tenants',
-    name: 'Manage Tenants',
-  },
-  {
-    path: '/clients',
-    name: 'Manage Buyer Seller And Traders',
-  },
-  {
-    path: '/maintainers',
-    name: 'Manage Service Engineers',
-  },
-  {
-    path: '/login',
-    name: 'Login To Continue',
-  },
-  {
-    path: '/forgetPassword',
-    name: 'Enter Email To Reset Password',
-  },
-  {
-    path: '/reset-password',
-    name: 'Enter Password To Continue',
+    path: '/prescriptions',
+    name: 'Browse patient prescriptions via Light EMR',
   },
 ];
 

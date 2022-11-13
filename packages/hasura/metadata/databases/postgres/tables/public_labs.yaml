@@ -2,10 +2,24 @@ table:
   schema: public
   name: labs
 array_relationships:
-  - name: medical_technologists
+  - name: lab_technician
     using:
       foreign_key_constraint_on:
-        column: lab_technician_id
+        column: lab_id
         table:
           schema: public
-          name: report
+          name: lab_technician
+select_permissions:
+  - role: lab_technician
+    permission:
+      columns:
+        - certificates
+        - address
+        - district
+        - name
+        - pin
+        - state
+        - created_at
+        - updated_at
+        - id
+      filter: {}

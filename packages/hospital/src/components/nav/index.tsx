@@ -159,60 +159,22 @@ const NavBar: FunctionComponent<{
 
   const links = [
     {
-      name: 'queries',
-      path: '/queries',
-      icon: SupportAgentIcon,
-      role: ['maintainer'],
-      active: useMatch('/queries'),
-    },
-    {
-      name: 'Bills',
+      name: 'write prescription',
       path: '/',
-      icon: ArticleIcon,
-      role: ['admin', 'terminal', 'tenantAdmin', 'customer', 'maintainer'],
+      icon: SupportAgentIcon,
       active: useMatch('/'),
     },
     {
-      name: 'tenants',
-      path: '/tenants',
-      role: ['admin', 'maintainer'],
+      name: 'lab Reports',
+      path: '/reports',
+      icon: ArticleIcon,
+      active: useMatch('/reports'),
+    },
+    {
+      name: 'prescriptions',
+      path: '/prescriptions',
       icon: PersonOutlineIcon,
-      active: useMatch('/tenants'),
-    },
-    {
-      name: 'maintainers',
-      path: '/maintainers',
-      icon: EngineeringIcon,
-      role: ['admin'],
-      active: useMatch('/maintainers'),
-    },
-    {
-      name: 'weighbridge entry',
-      path: '/weigh',
-      icon: AddTaskIcon,
-      role: ['terminal'],
-      active: useMatch('/weigh'),
-    },
-    {
-      name: 'Weighbridges',
-      path: '/weighbridges',
-      role: ['admin', 'tenantAdmin', 'maintainer'],
-      icon: StoreMallDirectoryIcon,
-      active: useMatch('/weighbridges'),
-    },
-    {
-      name: 'users',
-      path: '/users',
-      role: ['admin', 'tenantAdmin', 'maintainer'],
-      icon: AdminPanelSettingsIcon,
-      active: useMatch('/users'),
-    },
-    {
-      name: 'clients',
-      role: ['terminal', 'tenantAdmin', 'maintainer'],
-      path: '/clients',
-      icon: PersonOutlineIcon,
-      active: useMatch('/clients'),
+      active: useMatch('/prescriptions'),
     },
   ];
   const navigate = useNavigate();
@@ -236,18 +198,7 @@ const NavBar: FunctionComponent<{
             >
               <MenuIcon />
             </IconButton>
-            <img
-              style={{
-                height: '40px',
-                backgroundColor: 'white',
-                paddingTop: '3px',
-                paddingBottom: '3px',
-                paddingRight: '10px',
-                paddingLeft: '10px',
-                borderRadius: '20px',
-              }}
-              src="/logo.png"
-            />
+
             <Typography variant="h6" sx={{ mx: '10px' }} component="div">
               |
             </Typography>
@@ -342,45 +293,41 @@ const NavBar: FunctionComponent<{
           <Divider />
           {!RoleLoading && (
             <List>
-              {links
-                .filter((dt) => role && dt.role.includes(role))
-                .map((data, index) => (
-                  <ListItemButton
-                    key={index}
-                    onClick={() => navigate(data.path)}
+              {links.map((data, index) => (
+                <ListItemButton
+                  key={index}
+                  onClick={() => navigate(data.path)}
+                  sx={{
+                    ':hover': {
+                      backgroundColor: data.active ? 'slategray' : 'whitesmoke',
+                    },
+                    backgroundColor: data.active ? 'gray' : 'inherit',
+                    backgroundOpacity: 50,
+                    margin: 1,
+                    borderRadius: '5px',
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
                     sx={{
-                      ':hover': {
-                        backgroundColor: data.active
-                          ? 'slategray'
-                          : 'whitesmoke',
-                      },
-                      backgroundColor: data.active ? 'gray' : 'inherit',
-                      backgroundOpacity: 50,
-                      margin: 1,
-                      borderRadius: '5px',
-                      minHeight: 48,
-                      justifyContent: open ? 'initial' : 'center',
-                      px: 2.5,
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
                     }}
                   >
-                    <ListItemIcon
-                      sx={{
-                        minWidth: 0,
-                        mr: open ? 3 : 'auto',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <data.icon htmlColor={data.active ? 'white' : 'gray'} />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={data.name}
-                      sx={{
-                        color: data.active ? 'white' : 'inherit',
-                        opacity: open ? 1 : 0,
-                      }}
-                    />
-                  </ListItemButton>
-                ))}
+                    <data.icon htmlColor={data.active ? 'white' : 'gray'} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={data.name}
+                    sx={{
+                      color: data.active ? 'white' : 'inherit',
+                      opacity: open ? 1 : 0,
+                    }}
+                  />
+                </ListItemButton>
+              ))}
             </List>
           )}
         </Drawer>
